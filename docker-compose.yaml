@@ -1,0 +1,17 @@
+version: '2.4'
+
+services:
+  tg-tracker:
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile
+    image: tg-tracker:latest
+    container_name: tg-tracker
+    restart: always
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '2'
+    environment:
+        FOOBAR: 
