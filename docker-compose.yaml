@@ -13,5 +13,6 @@ services:
       options:
         max-size: '10m'
         max-file: '2'
-    environment:
-        FOOBAR: 
+    volumes:
+      - ./.storage:/data:rw
+      - ./config/config.toml:/config/config.toml:ro
