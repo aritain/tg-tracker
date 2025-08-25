@@ -1,3 +1,4 @@
 .env
 config.toml
 .storage
+list
