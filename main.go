@@ -59,14 +59,14 @@ func main() {
 			a.WriteValue(value)
 			msg.Text = fmt.Sprintf("%s\n", config.QueryResponse)
 			msg.Text += strconv.Itoa(value.Value)
-			log.Printf("%v added %v to value\n", userID, value.Value)
+			log.Printf("%v added %v to value\n", userID, cache)
 			cache = 0
 		} else if text == "-" && cache != 0 {
 			value.Value -= cache
 			a.WriteValue(value)
 			msg.Text = fmt.Sprintf("%s\n", config.QueryResponse)
 			msg.Text += strconv.Itoa(value.Value)
-			log.Printf("%v removed %v from value\n", userID, value.Value)
+			log.Printf("%v removed %v from value\n", userID, cache)
 			cache = 0
 		} else if text == "cancel" {
 			cache = 0
