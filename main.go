@@ -28,11 +28,13 @@ func main() {
 	var ucfg t.UpdateConfig = t.NewUpdate(0)
 	ucfg.Timeout = 60
 	updates := bot.GetUpdatesChan(ucfg)
+	go a.Notifier()
 
 	for update := range updates {
 		var text string
 		var userID int64
 		var value a.Balance
+		var msg a.TGMessage
 		if (update.Message == nil) && (update.CallbackQuery == nil) { // ignore any non-Message updates
 			continue
 		}
@@ -48,9 +50,9 @@ func main() {
 		if !slices.Contains(config.BotAdmins, userID) {
 			continue
 		}
-		msg := t.NewMessage(userID, "")
 		value = a.GetValue()
-		msg.ReplyMarkup = a.CompileQueryKeyboard()
+		msg.Keyboard = a.CompileQueryKeyboard()
+		msg.UserID = userID
 		if text == config.QueryText {
 			msg.Text = fmt.Sprintf("%s\n", config.QueryResponse)
 			msg.Text += strconv.Itoa(value.Value)
@@ -80,12 +82,11 @@ func main() {
 					msg.Text = config.ErrorResponse
 				} else {
 					msg.Text = config.UserPick
-					msg.ReplyMarkup = a.CompileFlowKeyboard()
+					msg.Keyboard = a.CompileFlowKeyboard()
 				}
 			}
 		}
-		if _, err := bot.Send(msg); err != nil {
-			log.Panic(err)
-		}
+
+		a.SendTGMessage(msg)
 	}
 }

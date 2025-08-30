@@ -13,6 +13,8 @@ services:
       options:
         max-size: '10m'
         max-file: '2'
+    environment:
+        TZ : "Europe/London"
     volumes:
       - ./.storage:/data:rw
       - ./config/config.toml:/config/config.toml:ro
