@@ -87,6 +87,6 @@ func main() {
 			}
 		}
 
-		a.SendTGMessage(msg)
+		a.SendTGMessage(msg, false)
 	}
 }

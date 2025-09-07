@@ -17,11 +17,11 @@ func Notifier() {
 		if currentTime.Equal(ntime) && !trigger {
 			tgm.Text = config.NotificationText
 			trigger = true
-			SendTGMessage(tgm)
+			SendTGMessage(tgm, true)
 		} else if currentTime.Equal(ctime) && !trigger {
 			tgm.Text = config.ConfirmationText
 			trigger = true
-			SendTGMessage(tgm)
+			SendTGMessage(tgm, false)
 		} else {
 			trigger = false
 		}

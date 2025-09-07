@@ -19,6 +19,7 @@ type Config struct {
 	ConfirmationText string  `mapstructure:"CONFIRMATION_TEXT"`
 	NTime            string  `mapstructure:"NTIME"`
 	CTime            string  `mapstructure:"CTIME"`
+	StickerID        string  `mapstructure:"STICKER_ID"`
 }
 
 type TGMessage struct {

@@ -28,17 +28,24 @@ func WriteValue(value Balance) {
 	json.NewEncoder(file).Encode(value)
 }
 
-func SendTGMessage(tgm TGMessage) {
+func SendTGMessage(tgm TGMessage, sticker bool) {
+	var msg t.Chattable
 	config := Get().Config()
 	if len(tgm.TGToken) == 0 {
 		tgm.TGToken = config.TGToken
 	}
 	bot, _ := t.NewBotAPI(tgm.TGToken)
-	msg := t.NewMessage(tgm.UserID, tgm.Text)
-	if len(tgm.Keyboard.InlineKeyboard) == 0 {
-		tgm.Keyboard = CompileQueryKeyboard()
+	if sticker {
+		msg = t.NewSticker(tgm.UserID, t.FileID(config.StickerID))
+	} else {
+		message := t.NewMessage(tgm.UserID, tgm.Text)
+		if len(tgm.Keyboard.InlineKeyboard) == 0 {
+			tgm.Keyboard = CompileQueryKeyboard()
+		}
+		message.ReplyMarkup = tgm.Keyboard
+		msg = message
 	}
-	msg.ReplyMarkup = tgm.Keyboard
+
 	var err error
 
 	for {
