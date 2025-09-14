@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"log"
+	"math/rand"
 	"os"
 	"time"
 
@@ -36,7 +37,8 @@ func SendTGMessage(tgm TGMessage, sticker bool) {
 	}
 	bot, _ := t.NewBotAPI(tgm.TGToken)
 	if sticker {
-		msg = t.NewSticker(tgm.UserID, t.FileID(config.StickerID))
+		sticker := config.StickerID[rand.Intn(len(config.StickerID))]
+		msg = t.NewSticker(tgm.UserID, t.FileID(sticker))
 	} else {
 		message := t.NewMessage(tgm.UserID, tgm.Text)
 		if len(tgm.Keyboard.InlineKeyboard) == 0 {
