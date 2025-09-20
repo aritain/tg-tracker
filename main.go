@@ -76,9 +76,11 @@ func main() {
 		} else {
 			cache, err = strconv.Atoi(text)
 			if err != nil {
+				log.Printf("Text '%s' from user '%v'\n", text, userID)
 				msg.Text = config.ErrorResponse
 			} else {
 				if cache > 100 || cache < 1 {
+					log.Printf("Text '%s' from user '%v'\n", text, userID)
 					msg.Text = config.ErrorResponse
 				} else {
 					msg.Text = config.UserPick
