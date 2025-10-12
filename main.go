@@ -77,7 +77,7 @@ func main() {
 		} else {
 			cache, err = strconv.Atoi(text)
 			if err != nil {
-				msg.Text = config.ErrorResponse
+				continue
 			} else {
 				if cache > 100 || cache < 1 {
 					msg.Text = config.ErrorResponse
